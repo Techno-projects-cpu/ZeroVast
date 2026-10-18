@@ -36,15 +36,15 @@ if ('IntersectionObserver' in window) {
 const year = document.querySelector('[data-year]');
 if (year) year.textContent = new Date().getFullYear();
 
-// Preselect service from URL and create the WhatsApp enquiry
+// Preselect project type from the URL and build the WhatsApp enquiry
 const enquiryForm = document.querySelector('#enquiry-form');
 if (enquiryForm) {
   const params = new URLSearchParams(window.location.search);
-  const selectedService = params.get('service');
-  const serviceSelect = enquiryForm.elements.service;
-  if (selectedService && serviceSelect) {
-    const matchingOption = [...serviceSelect.options].find(option => option.value === selectedService);
-    if (matchingOption) serviceSelect.value = selectedService;
+  const selectedType = params.get('type');
+  const typeSelect = enquiryForm.elements.type;
+  if (selectedType && typeSelect) {
+    const matchingOption = [...typeSelect.options].find(option => option.value === selectedType);
+    if (matchingOption) typeSelect.value = selectedType;
   }
 
   enquiryForm.addEventListener('submit', (event) => {
@@ -58,19 +58,19 @@ if (enquiryForm) {
 
     const data = new FormData(enquiryForm);
     const message = [
-      '*NEW SERVICE REQUEST — NEZAAD INDUSTRIES*',
+      '*NEW PROJECT REQUEST — NEZAAD INDUSTRIES*',
       '',
       `*Name:* ${data.get('name')}`,
+      `*Email:* ${data.get('email') || 'Not provided'}`,
       `*Phone:* ${data.get('phone')}`,
-      `*Service:* ${data.get('service')}`,
-      `*Approx. budget:* ${data.get('budget') || 'Not specified'}`,
-      `*Preferred deadline:* ${data.get('deadline') || 'Flexible / not specified'}`,
-      `*Best time to call:* ${data.get('calltime') || 'Any time'}`,
+      `*Project type:* ${data.get('type')}`,
+      `*Timeline:* ${data.get('timeline') || 'Not specified'}`,
+      `*Budget range:* ${data.get('budget') || 'Not specified'}`,
       '',
-      '*Work details:*',
+      '*Scope / details:*',
       data.get('details'),
       '',
-      '_I understand that the final price depends on scope and complexity, includes up to 3 revisions, and that website domain/hosting charges are separate._'
+      "_I'll reply within one working day to confirm scope and a timeline._"
     ].join('\n');
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
