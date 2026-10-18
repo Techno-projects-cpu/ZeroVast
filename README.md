@@ -2,7 +2,7 @@
 
 A lightweight, database-free multi-page website for **Nezaad**, an independent web developer
 based in Kalluru, Khammam, Telangana. Project enquiries are formatted locally in the browser
-and opened in WhatsApp — nothing is sent to a server, and nothing is stored.
+and opened as an email draft — nothing is sent to a server, and nothing is stored.
 
 ## Stack
 
@@ -31,14 +31,15 @@ for unknown paths.
 | `index.html` | Home — hero, what I build, stack & capabilities, how I work |
 | `capabilities.html` | Detailed capabilities, the full stack, and stated limits |
 | `about.html` | Background, principles, working environment |
-| `contact.html` | Enquiry form → WhatsApp message |
+| `contact.html` | Enquiry form → email draft |
 | `404.html` | Not-found page |
 
 ## Enquiry flow
 
-The form in `contact.html` builds a WhatsApp message and opens `wa.me/918977206820`. The
-message is assembled in the browser from the form fields; the visitor reviews it and chooses
-to send it. To change the destination number, edit `WHATSAPP_NUMBER` in `assets/script.js`.
+The form in `contact.html` builds an email and hands it to the visitor's own mail app via a
+`mailto:` link addressed to both inbox addresses. The message is assembled in the browser from
+the form fields; the visitor reviews it in their mail client and chooses to send it. To change
+the recipients, edit `EMAIL_ADDRESSES` in `assets/script.js`.
 
 Project types can be pre-selected through the URL, e.g. `contact.html?type=Web%20app%20or%20internal%20tool`.
 

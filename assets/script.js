@@ -1,4 +1,7 @@
-const WHATSAPP_NUMBER = "918977206820";
+const EMAIL_ADDRESSES = [
+  'themerchantofdeath2011@gmail.com',
+  'themerchantofdeath2000@gmail.com'
+];
 
 // Mobile navigation
 const menuButton = document.querySelector('.menu-button');
@@ -36,7 +39,7 @@ if ('IntersectionObserver' in window) {
 const year = document.querySelector('[data-year]');
 if (year) year.textContent = new Date().getFullYear();
 
-// Preselect project type from the URL and build the WhatsApp enquiry
+// Preselect project type from the URL and build the enquiry email
 const enquiryForm = document.querySelector('#enquiry-form');
 if (enquiryForm) {
   const params = new URLSearchParams(window.location.search);
@@ -57,24 +60,32 @@ if (enquiryForm) {
     }
 
     const data = new FormData(enquiryForm);
-    const message = [
-      '*NEW PROJECT REQUEST — NEZAAD INDUSTRIES*',
+    const projectType = data.get('type');
+
+    const body = [
+      'New project request — NEZAAD Industries',
       '',
-      `*Name:* ${data.get('name')}`,
-      `*Email:* ${data.get('email') || 'Not provided'}`,
-      `*Phone:* ${data.get('phone')}`,
-      `*Project type:* ${data.get('type')}`,
-      `*Timeline:* ${data.get('timeline') || 'Not specified'}`,
-      `*Budget range:* ${data.get('budget') || 'Not specified'}`,
+      `Name: ${data.get('name')}`,
+      `Email: ${data.get('email')}`,
+      `Phone: ${data.get('phone') || 'Not provided'}`,
+      `Project type: ${projectType}`,
+      `Timeline: ${data.get('timeline') || 'Not specified'}`,
+      `Budget range: ${data.get('budget') || 'Not specified'}`,
       '',
-      '*Scope / details:*',
+      'Scope / details:',
+      '----------------',
       data.get('details'),
       '',
-      "_I'll reply within one working day to confirm scope and a timeline._"
+      '---',
+      "I'll reply within one working day to confirm scope and a timeline."
     ].join('\n');
 
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    if (status) status.textContent = 'Opening WhatsApp…';
-    window.open(url, '_blank', 'noopener,noreferrer');
+    const subject = `New project request — ${projectType}`;
+    const url = `mailto:${EMAIL_ADDRESSES.join(',')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // exposed for debugging; the browser then hands off to the visitor's mail app
+    enquiryForm.dataset.mailto = url;
+    if (status) status.textContent = 'Opening your email app…';
+    window.location.href = url;
   });
 }

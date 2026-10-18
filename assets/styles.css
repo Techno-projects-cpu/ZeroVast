@@ -227,6 +227,10 @@ h1, h2, h3 { letter-spacing: -.055em; }
 .footer-links a:hover { color: #fff; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 25px; border-top: 1px solid var(--line); color: #6f6f6b; font: 500 .72rem/1.6 var(--mono); letter-spacing: .04em; }
 
+/* Email links ------------------------------------------------------------- */
+.mono-link { font-family: var(--mono); font-size: .78rem; font-weight: 600; line-height: 1.65; letter-spacing: .01em; overflow-wrap: anywhere; }
+.contact-item .mono-link { font-size: .84rem; }
+
 /* Motion ------------------------------------------------------------------- */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity: 1; transform: none; }
